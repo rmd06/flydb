@@ -1,0 +1,76 @@
+<?php
+
+namespace Fly\FlydbBundle\Entity;
+
+use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="flydb_user")
+ */
+class User extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Flyline", mappedBy="owner")
+     */
+    protected $flylines;
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+        $this->flylines = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add flylines
+     *
+     * @param Fly\FlydbBundle\Entity\Flyline $flylines
+     * @return User
+     */
+    public function addFlyline(\Fly\FlydbBundle\Entity\Flyline $flylines)
+    {
+        $this->flylines[] = $flylines;
+    
+        return $this;
+    }
+
+    /**
+     * Remove flylines
+     *
+     * @param Fly\FlydbBundle\Entity\Flyline $flylines
+     */
+    public function removeFlyline(\Fly\FlydbBundle\Entity\Flyline $flylines)
+    {
+        $this->flylines->removeElement($flylines);
+    }
+
+    /**
+     * Get flylines
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getFlylines()
+    {
+        return $this->flylines;
+    }
+}

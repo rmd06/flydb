@@ -1,0 +1,46 @@
+{% extends 'FlyFlydbBundle::layout.html.twig' %}
+
+{% block body %}
+<div id="flylines">
+
+<h1>Flyline Management</h1>
+
+<form id="flyManageForm" name="flyManageForm" action="{{ path('flymanage_care_multiple') }}" method="post">
+<table class="flyline_list">
+    <thead>
+        <tr>
+            <th> </th>
+            <th> </th>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Genotype</th>
+            <th>Origin</th>
+            <th>Tag</th>
+            <th>Note</th>
+            <th>Last Cared</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i, entity in entities %}
+        <tr class="{{ cycle(['odd', 'even'], i) }}">
+            <td><input class="multi_checkbox" type="checkbox" value="{{ entity.id }}" name="flylines[{{ entity.id }}]" /></td>
+            <td> <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">Edit</a> </td>
+            <td class="name"><a href="{{ path('flymanage_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.owner }}</td>
+            <td>{{ entity.genotype }}</td>
+            <td>{{ entity.origin }}</td>
+            <td>{{ entity.tag }}</td>
+            <td><a href="{{ path('flymanage_show', { 'id': entity.id }) }}">{{ entity.note(10) }}</a></td>
+            <td>{% if entity.cared %}{{ entity.cared|daysToNow }}{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<button value="care" type="submit">
+Care Selected Flylines
+</button>
+</form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'FlyFlydbBundle::layout.html.twig' %}
+
+{% block body %}
+
+<div id="flyline">
+<h1>Line: {{ entity.name }}</h1>
+
+<table class="flyline_info">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>Genotype</th>
+            <td>{{ entity.genotype }}</td>
+        </tr>
+        <tr>
+            <th>Origin</th>
+            <td>{{ entity.origin }}</td>
+        </tr>
+        <tr>
+            <th>Tag</th>
+            <td>{{ entity.tag }}</td>
+        </tr>
+        <tr>
+            <th>Info Created At</th>
+            <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Info Update At</th>
+            <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Last Cared</th>
+            <td>{{ entity.cared|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <td>{{ entity.note }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% if is_granted('EDIT', entity) %}
+<table class="manage_tools">
+<tbody>
+<tr>
+    <td>
+        <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </td>
+{#    {% if is_granted('DELETE', entity) %}
+    <td>
+        <a href="{{ path('flymanage_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
+    </td>
+    {% endif %}
+#}
+    <td>
+        <a href="{{ path('flymanage_care', { 'id': entity.id }) }}">
+            Care
+        </a>
+    </td>
+</tr>
+</tbody>
+</table>
+{% endif %}
+    
+<table class="manage_tools">
+<tbody>
+<tr>
+    <td>
+        <a href="{{ path('flyline_index') }}">
+            Back to Flyline list
+        </a>
+    </td>
+</tr>
+</tbody>
+</table>
+
+</div>
+{% endblock %}

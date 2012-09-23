@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Simple fly management{% endblock %}
+
+{% block logo_header %}
+    <a href="{{ path('fly_flydb_homepage') }}">FlyDB</a>
+{% endblock %}
+
+{% block title_header %}
+    for those masters
+    <br>
+    of flies
+{% endblock %}
+
+{% block menu %}
+<ul>
+    <li>
+        <a href="{{ path('flymanage_new') }}">Add a Fly Line</a>
+    </li>
+    <li>
+        <a href="{{ path('flymanage') }}">Manage Fly Stock</a>
+    </li>
+    <li>
+        <a href="#">Login</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block sidebar %}
+    Sidebar content
+{% endblock %}

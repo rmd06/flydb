@@ -1,0 +1,36 @@
+<?php
+
+namespace Fly\FlydbBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class FlylineController extends Controller
+{
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $flylines = $em->getRepository('FlyFlydbBundle:Flyline')
+                       ->getLatestFlylines();
+                       
+        return $this->render('FlyFlydbBundle:Flyline:index.html.twig', array(
+                    'flylines' => $flylines
+                    ));
+    }
+    
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $flyline = $em->getRepository('FlyFlydbBundle:Flyline')->find($id);
+        
+        if (!$flyline)
+        {
+            throw $this->createNotFoundException('Unable to find the fly line');
+        }
+        
+        return $this->render('FlyFlydbBundle:Flyline:show.html.twig', array(
+            'flyline'      => $flyline,
+        ));
+    }
+}

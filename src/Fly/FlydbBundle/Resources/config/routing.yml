@@ -1,0 +1,19 @@
+fly_flydb_homepage:
+    pattern:  /
+    defaults: { _controller: FlyFlydbBundle:Flyline:index }
+
+flyline_index:
+    pattern:  /flyline
+    defaults: { _controller: FlyFlydbBundle:Flyline:index }
+
+flyline_show:
+    pattern:  /{id}
+    defaults: { _controller: FlyFlydbBundle:Flyline:show }
+    requirements:
+        _method:  GET
+        id: \d+
+
+fly_flydb_manage:
+    resource: "@FlyFlydbBundle/Resources/config/routing/flymanage.yml"
+    prefix:   /manage
+

@@ -1,0 +1,36 @@
+generator: admingenerator.generator.doctrine
+params:
+  model: Fly\FlydbBundle\Entity\Flyline
+  namespace_prefix: Fly
+  bundle_name: ManageBundle
+  fields: 
+    name: 
+        label: Name
+    genotype: 
+        label: Genotype
+
+builders:
+  list:
+    params:
+      title: List of Fly lines
+      display: [id, name, genotype]
+      actions:
+        new: ~
+      object_actions:
+        delete: ~
+  filters:
+    params:
+      display: [id, name, genotype]
+  new:
+    params:
+      title: New object for ManageBundle
+      display: [id, name, genotype]
+      actions:
+        list: ~
+  edit:
+    params:
+      title: You're editing the object "%object%"|{ %object%: YourModel.title }|
+      display: [id, name, genotype]
+      actions:
+        list: ~
+  delete: ~

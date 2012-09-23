@@ -1,0 +1,40 @@
+flymanage:
+    pattern:  /
+    defaults: { _controller: "FlyFlydbBundle:Flyline:manage" }
+
+flymanage_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FlyFlydbBundle:Flyline:show" }
+
+flymanage_new:
+    pattern:  /new
+    defaults: { _controller: "FlyFlydbBundle:Flyline:new" }
+
+flymanage_create:
+    pattern:  /create
+    defaults: { _controller: "FlyFlydbBundle:Flyline:create" }
+    requirements: { _method: post }
+
+flymanage_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FlyFlydbBundle:Flyline:edit" }
+
+flymanage_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FlyFlydbBundle:Flyline:update" }
+    requirements: { _method: post }
+
+flymanage_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FlyFlydbBundle:Flyline:delete" }
+    requirements: { _method: post }
+
+flymanage_care:
+    pattern:  /{id}/care
+    defaults: { _controller: "FlyFlydbBundle:Flyline:care" }
+    requirements: { _method: post }
+    
+flymanage_care_multiple:
+    pattern:  /caremultiple
+    defaults: { _controller: "FlyFlydbBundle:Flyline:careMultiple" }
+    requirements: { _method: post }

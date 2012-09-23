@@ -1,0 +1,11 @@
+parameters:
+#    fly_flydb.example.class: Fly\FlydbBundle\Example
+
+services:
+#    fly_flydb.example:
+#        class: %fly_flydb.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    fly.twig.fly_extension:
+        class: Fly\FlydbBundle\Twig\FlyExtension
+        tags:
+            - { name: twig.extension }

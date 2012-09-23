@@ -1,0 +1,23 @@
+{% extends 'FlyFlydbBundle::layout.html.twig' %}
+
+{% block body %}
+<div id="flyline_form">
+<h1>Flyline creation</h1>
+
+<form action="{{ path('flymanage_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('flymanage') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'FlyFlydbBundle::layout.html.twig' %}
+
+{% block body %}
+<div id="flyline_form">
+
+    <h1>Flyline edit</h1>
+
+    <form class="button" action="{{ path('flymanage_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_widget(edit_form) }}
+        <p>
+            <button type="submit">Confirm Updates</button>
+        </p>
+    </form>
+
+    <form class="button" action="{{ path('flymanage_delete', { 'id': entity.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <p>
+            <button type="submit" onclick="if(!confirm('Are you sure to delete this fly line?')) { return false; }">Delete this record</button>
+        </p>
+    </form>
+    
+    <table class="manage_tools">
+    <tbody>
+        <tr>
+            <td>
+                <a href="{{ path('flymanage') }}">
+                    Back to management list
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+
+</div>
+{% endblock %}
