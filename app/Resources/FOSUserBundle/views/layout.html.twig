@@ -1,0 +1,74 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Simple fly management{% endblock %}
+
+{% block logo_header %}
+    <a href="{{ path('fly_flydb_homepage') }}">FlyDB</a>
+{% endblock %}
+
+{% block title_header %}
+    for those masters
+    <br>
+    of flies
+{% endblock %}
+
+{% block menu %}
+<ul>
+    <li>
+        <a href="{{ path('flymanage_new') }}">Add a Fly Line</a>
+    </li>
+    <li>
+        <a href="{{ path('flymanage') }}">Manage Fly Stock</a>
+    </li>
+    <li>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        {% endif %}
+    </li>
+    <li>
+        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block fos_user %}
+<div class="user_tools">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
+{% block custome_fos_user %}
+<div class="user_bar">
+    <div class="content">
+        {% for key, message in app.session.getFlashes() %}
+        <div class="user_messages">
+            {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="content">
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

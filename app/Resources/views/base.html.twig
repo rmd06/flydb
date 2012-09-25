@@ -1,13 +1,90 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title>{% block title %}website title - yeah!{% endblock %}</title>
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% block stylesheets %}
+            <link href="{{ asset('css/reset-min.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/base.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/colors.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/code.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/flylines.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
     </head>
+    
     <body>
-        {% block body %}{% endblock %}
+        <div class="hd">
+            <div class="content">
+                <div class="clearfix">
+                    <div class="logo_header">
+                        {% block logo_header %}
+                        <a href="#">Big Logo</a>
+                        {% endblock %}
+                    </div>
+                    <h1 class="title_header">
+                        {% block title_header %}
+                        small title
+                        <br>
+                        oh small title
+                        {% endblock %}
+                    </h1>
+                </div>
+                <div class="menu">
+                    {% block menu %}
+                    <ul>
+                        <li>
+                            <a href="#">function A</a>
+                        </li>
+                        <li>
+                            <a href="#">content B</a>
+                        </li>
+                        <li>
+                            <a href="#">something C</a>
+                        </li>
+                    </ul>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        
+        {% block custome_fos_user %}
+        {% endblock %}
+        
+        <div class="bd">
+            <div class="content">
+                <div class="infobar clearfix">
+                    {% block infobar %}
+                    <div class="infobar-box">
+                        <h3>Infobar title</h3>
+                    </div>
+                    {% endblock %}
+                </div>
+                <div class="body-web">
+                    {% block body %}
+                        <div class="section">
+                            <h1>The Title
+                                <a class="headerlink" href="#" title="Permalink to this headline">¶</a>
+                            </h1>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="ft">
+                <div class="content">
+                {% block footer %}
+                    Footer. Playing with Symfony2 is fun. --ZBY.
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+        
         {% block javascripts %}{% endblock %}
     </body>
 </html>
