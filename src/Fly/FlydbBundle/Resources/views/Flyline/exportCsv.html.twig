@@ -1,0 +1,4 @@
+id,name,owner,genotype,location,temperatureC,origin,tag,note
+{% for flyline in flylines %}
+{{ flyline.id }},"{{ flyline.name }}","{{ flyline.owner }}","{{ flyline.genotype }}","{{ flyline.location }}",{{ flyline.location.temperatureC }},"{{ flyline.origin }}","{{ flyline.tag }}","{{ flyline.note }}"
+{% endfor %}
