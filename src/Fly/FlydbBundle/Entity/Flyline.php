@@ -29,6 +29,9 @@ class Flyline
      */
     protected $genotype;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="flylines")
+     */
     protected $location;
     
     /**
@@ -305,5 +308,34 @@ class Flyline
     public function getCared()
     {
         return $this->cared;
+    }
+
+
+    /**
+     * Set location
+     *
+     * @param Fly\FlydbBundle\Entity\Location $location
+     * @return Flyline
+     */
+    public function setLocation(\Fly\FlydbBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return Fly\FlydbBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+    
+    public function __toString()
+    {
+        return $this->name;
     }
 }

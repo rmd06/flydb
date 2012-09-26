@@ -14,6 +14,7 @@
             <th>Name</th>
             <th>Owner</th>
             <th>Genotype</th>
+            <th>Location</th>
             <th>Origin</th>
             <th>Tag</th>
             <th>Note</th>
@@ -23,14 +24,20 @@
     <tbody>
     {% for i, entity in entities %}
         <tr class="{{ cycle(['odd', 'even'], i) }}">
-            <td><input class="multi_checkbox" type="checkbox" value="{{ entity.id }}" name="flylines[{{ entity.id }}]" /></td>
-            <td> <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">Edit</a> </td>
+            <td>
+                <div class="multi_checkbox" >
+                <input id="checkbox{{ entity.id }}" type="checkbox" value="{{ entity.id }}" name="flylines[{{ entity.id }}]" />
+                <label for="checkbox{{ entity.id }}"></label>
+                </div>
+            </td>
+            <td class="manage_tools"> <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">Edit</a> </td>
             <td class="name"><a href="{{ path('flymanage_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
             <td>{{ entity.owner }}</td>
             <td>{{ entity.genotype }}</td>
+            <td>{{ entity.location }}</td>
             <td>{{ entity.origin }}</td>
             <td>{{ entity.tag }}</td>
-            <td><a href="{{ path('flymanage_show', { 'id': entity.id }) }}">{{ entity.note(10) }}</a></td>
+            <td><a href="{{ path('flymanage_show', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></td>
             <td>{% if entity.cared %}{{ entity.cared|daysToNow }}{% endif %}</td>
         </tr>
     {% endfor %}

@@ -16,8 +16,16 @@
             <td>{{ entity.name }}</td>
         </tr>
         <tr>
+            <th>Owner</th>
+            <td>{{ entity.owner }}</td>
+        </tr>
+        <tr>
             <th>Genotype</th>
             <td>{{ entity.genotype }}</td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td>{{ entity.location }}</td>
         </tr>
         <tr>
             <th>Origin</th>
@@ -28,11 +36,11 @@
             <td>{{ entity.tag }}</td>
         </tr>
         <tr>
-            <th>Info Created At</th>
+            <th>Created At</th>
             <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
-            <th>Info Update At</th>
+            <th>Update At</th>
             <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
@@ -75,13 +83,22 @@
     
 <table class="manage_tools">
 <tbody>
-<tr>
-    <td>
-        <a href="{{ path('flyline_index') }}">
-            Back to Flyline list
-        </a>
-    </td>
-</tr>
+    <tr>
+        <td>
+            <a href="{{ path('flyline_index') }}">
+                Back to Flyline list
+            </a>
+        </td>
+    </tr>
+    {% if is_granted('EDIT', entity) %}
+    <tr>
+        <td>
+            <a href="{{ path('flymanage') }}">
+                Back to management list
+            </a>
+        </td>
+    </tr>
+    {% endif %}
 </tbody>
 </table>
 

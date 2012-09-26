@@ -11,6 +11,7 @@
             <th>Name</th>
             <th>Owner</th>
             <th>Genotype</th>
+            <th>Location</th>
             <th>Origin</th>
             <th>Tag</th>
             <th>Note</th>
@@ -23,6 +24,7 @@
             <td class="name"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
             <td>{{ entity.owner }}</td>
             <td>{{ entity.genotype }}</td>
+            <td>{{ entity.location }}</td>
             <td>{{ entity.origin }}</td>
             <td>{{ entity.tag }}</td>
             <td><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}</a></td>

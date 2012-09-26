@@ -13,6 +13,7 @@ class FlylineType extends AbstractType
         $builder
             ->add('name')
             ->add('genotype')
+            ->add('location')
             ->add('origin')
             ->add('tag')
             ->add('note')

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Fly\FlydbBundle\Repository\FlylineRepository")
  * @ORM\Table(name="flyline")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Flyline
 {
@@ -28,6 +29,9 @@ class Flyline
      */
     protected $genotype;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="flylines")
+     */
     protected $location;
     
     /**
@@ -164,17 +168,23 @@ class Flyline
      *
      * @return string 
      */
-    public function getNote()
+    public function getNote($length = null)
     {
-        return $this->note;
+        if (false === is_null($length) && $length > 0)
+            return substr($this->note, 0, $length);
+        else
+            return $this->note;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedValue()
+    public function setDateTimePrePersist()
     {
-        $this->created = new \DateTime();
+        $newDateTime = new \DateTime();
+        $this->created = $newDateTime;
+        $this->updated = $newDateTime;
+        $this->cared = $newDateTime;
     }
 
     /**
@@ -276,4 +286,28 @@ class Flyline
     {
         return $this->owner;
     }
+
+    /**
+     * Set cared
+     *
+     * @param \DateTime $cared
+     * @return Flyline
+     */
+    public function setCared($cared)
+    {
+        $this->cared = $cared;
+    
+        return $this;
+    }
+
+    /**
+     * Get cared
+     *
+     * @return \DateTime 
+     */
+    public function getCared()
+    {
+        return $this->cared;
+    }
+
 }

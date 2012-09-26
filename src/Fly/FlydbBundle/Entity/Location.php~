@@ -1,0 +1,49 @@
+<?php
+
+namespace Fly\FlydbBundle\Entity;
+
+use Fly\FlydbBundle\Entity\User;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/** 
+ * @ORM\Entity
+ * @ORM\Table(name="location")
+ */
+class Location
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $name;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $place;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $temperatureC;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Flyline", mappedBy="location")
+     */
+    protected $flylines;
+    
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->flylines = new ArrayCollection();
+    }
+
+}

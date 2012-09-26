@@ -37,6 +37,12 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $userA = $manager->merge($this->getReference('user-a'));
         $userB = $manager->merge($this->getReference('user-b'));
         
+        $location1 = $manager->merge($this->getReference('location1'));
+        $location2 = $manager->merge($this->getReference('location2'));
+        $location3 = $manager->merge($this->getReference('location3'));
+        $location4 = $manager->merge($this->getReference('location4'));
+        $location5 = $manager->merge($this->getReference('location5'));
+
         $flyline1 = new Flyline();
         $flyline1->setName('CS');
         $flyline1->setGenotype('+');
@@ -47,6 +53,7 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $flyline1->setUpdated($flyline1->getCreated());
         $flyline1->setCared($flyline1->getCreated());
         $flyline1->setOwner($userA);
+        $flyline1->setLocation($location1);
         $manager->persist($flyline1);
         
         $flyline2 = new Flyline();
@@ -59,6 +66,7 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $flyline2->setUpdated($flyline2->getCreated());
         $flyline2->setCared($flyline2->getCreated());
         $flyline2->setOwner($userA);
+        $flyline2->setLocation($location1);
         $manager->persist($flyline2);
         
         $flyline3 = new Flyline();
@@ -71,6 +79,7 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $flyline3->setUpdated($flyline3->getCreated());
         $flyline3->setCared($flyline3->getCreated());
         $flyline3->setOwner($userB);
+        $flyline3->setLocation($location2);
         $manager->persist($flyline3);
         
         $flyline4 = new Flyline();
@@ -83,6 +92,7 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $flyline4->setUpdated($flyline4->getCreated());
         $flyline4->setCared($flyline4->getCreated());
         $flyline4->setOwner($userB);
+        $flyline4->setLocation($location3);
         $manager->persist($flyline4);
                                 
         $manager->flush();
@@ -92,6 +102,9 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $this->addReference('flyline3', $flyline3);
         $this->addReference('flyline4', $flyline4);
         
+        /**
+         * add acls
+         */
         $aclProvider = $this->container->get('security.acl.provider');
         $roleSecurityIdentity = new RoleSecurityIdentity('ROLE_ADMIN');
 
