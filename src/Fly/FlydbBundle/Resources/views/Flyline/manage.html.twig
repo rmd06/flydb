@@ -1,11 +1,25 @@
 {% extends 'FlyFlydbBundle::layout.html.twig' %}
 
+
+{% block searchbar %}
+<div class="search_bar">
+<div class="content">
+    <form class="search_form" method="get" action="{{ path('flydb_search_manage') }}">
+        <input id="search_text" onfocus="if (this.value == 'Search and manage...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search and manage...';}" type="text" value="Search and manage..." name="searchTerm">
+        <div class="help">Hit "Enter" to Search and Manage. Operators: "AND" "NOT" ...</div>
+        <input id="submit_button" type="submit" value="Go">
+    </form>
+</div>
+</div>
+{% endblock %}
+
 {% block body %}
 <div id="flylines">
 
 <h1>Flyline Management</h1>
 
 <form id="flyManageForm" name="flyManageForm" action="{{ path('flymanage_care_multiple') }}" method="post">
+
 <table class="flyline_list">
     <thead>
         <tr>
@@ -22,7 +36,7 @@
         </tr>
     </thead>
     <tbody>
-    {% for i, entity in entities %}
+    {% for i, entity in pager.currentPageResults %}
         <tr class="{{ cycle(['odd', 'even'], i) }}">
             <td>
                 <div class="multi_checkbox" >
@@ -47,7 +61,12 @@
 <button value="care" type="submit">
 Care Selected Flylines
 </button>
+
 </form>
+
+<div class="pagination pagerfanta">{{ pagerfanta(pager) }}</div>
+
+
 
 </div>
 {% endblock %}

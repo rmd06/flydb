@@ -212,6 +212,11 @@ blockquote.quote
   text-decoration: underline;
 }
 
+.infobar-box .export_tool
+{
+  font-size: 0.9em;
+}
+
 #doc-toc li
 {
   padding: 2px;
@@ -327,6 +332,41 @@ div.breadcrumb h3
     display: none;
 }
 
+.search_form
+{
+    height: 60px;
+
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.search_form #search_text
+{
+  font-size: 150%;
+  padding: 8px 10px;
+  line-height: 1.6em;
+  margin-bottom: 3px;
+  margin-left: 0px;
+  width: 80%;
+  height: 27px;
+  text-indent: 0;
+    border: 1px solid #999;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;  color: #666;
+}
+
+.search_form #submit_button
+{
+  display: none;
+}
+
+.search_form .help
+{
+  font-size: 60%;
+}
+
+
 .bd .content div.breadcrumb ul
 {
     margin: 0;
@@ -410,7 +450,7 @@ h2#P, h2#Q, h2#R, h2#S, h2#T, h2#U, h2#V, h2#W, h2#X, h2#Y, h2#Z
     font-size:0.9em;
     margin:15px;
     position:relative;
-    width:300px;
+    width:10%;
     z-index:999;
 }
 

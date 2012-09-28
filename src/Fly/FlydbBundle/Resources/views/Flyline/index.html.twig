@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-    {% for i, entity in entities %}
+    {% for i, entity in pager.currentPageResults %}
         <tr class="{{ cycle(['odd', 'even'], i) }}">
             <td class="name"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
             <td>{{ entity.owner }}</td>
@@ -27,12 +27,13 @@
             <td>{{ entity.location }}</td>
             <td>{{ entity.origin }}</td>
             <td>{{ entity.tag }}</td>
-            <td><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}</a></td>
+            <td><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></td>
             <td>{% if entity.cared %}{{ entity.cared|daysToNow }}{% endif %}</td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+<div class="pagination pagerfanta">{{ pagerfanta(pager) }}</div>
 
 </div>
 {% endblock %}

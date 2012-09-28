@@ -33,6 +33,30 @@
 </ul>
 {% endblock %}
 
-{% block sidebar %}
-    Sidebar content
+{% block custome_fos_user %}
+{% endblock %}
+
+{% block searchbar %}
+<div class="search_bar">
+<div class="content">
+    <form class="search_form" method="get" action="{{ path('flydb_search') }}">
+        <input id="search_text" onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}" type="text" value="Search..." name="searchTerm">
+        <input id="submit_button" type="submit" value="Go" >
+        <div class="help">Hit "Enter" to Search. Operators: "AND" "NOT" ...</div>
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block infobar %}
+<div class="infobar-box">
+    <div class="export_tool">
+        <p>
+            <a href="{{ path('fly_export_csv') }}">Export All</a>
+        </p>
+        <p>
+            <a href="{{ path('fly_user_export_csv') }}">Export Yours</a>
+        </p>
+    </div>
+</div>
 {% endblock %}

@@ -21,40 +21,45 @@
     
     <body>
         <div class="hd">
-            <div class="content">
-                <div class="clearfix">
-                    <div class="logo_header">
-                        {% block logo_header %}
-                        <a href="#">Big Logo</a>
+            <div class="illustration png_fix">
+                <div class="content">
+                    <div class="clearfix">
+                        <div class="logo_header">
+                            {% block logo_header %}
+                            <a href="#">Big Logo</a>
+                            {% endblock %}
+                        </div>
+                        <h1 class="title_header">
+                            {% block title_header %}
+                            small title
+                            <br>
+                            oh small title
+                            {% endblock %}
+                        </h1>
+                    </div>
+                    <div class="menu">
+                        {% block menu %}
+                        <ul>
+                            <li>
+                                <a href="#">function A</a>
+                            </li>
+                            <li>
+                                <a href="#">content B</a>
+                            </li>
+                            <li>
+                                <a href="#">something C</a>
+                            </li>
+                        </ul>
                         {% endblock %}
                     </div>
-                    <h1 class="title_header">
-                        {% block title_header %}
-                        small title
-                        <br>
-                        oh small title
-                        {% endblock %}
-                    </h1>
-                </div>
-                <div class="menu">
-                    {% block menu %}
-                    <ul>
-                        <li>
-                            <a href="#">function A</a>
-                        </li>
-                        <li>
-                            <a href="#">content B</a>
-                        </li>
-                        <li>
-                            <a href="#">something C</a>
-                        </li>
-                    </ul>
-                    {% endblock %}
                 </div>
             </div>
         </div>
         
         {% block custome_fos_user %}
+        {% endblock %}
+        
+        {% block searchbar %}
         {% endblock %}
         
         <div class="bd">

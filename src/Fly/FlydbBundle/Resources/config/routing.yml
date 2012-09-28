@@ -1,13 +1,44 @@
 fly_flydb_homepage:
-    pattern:  /
-    defaults: { _controller: FlyFlydbBundle:Flyline:index }
+    pattern:  /{page}
+    defaults: { _controller: FlyFlydbBundle:Flyline:index, page: 1 }
+    requirements:
+        _method:  GET
+        page: \d+
+        
+flydb_search:
+    pattern:  /search
+    defaults: { _controller: FlyFlydbBundle:Flyline:search }
+    requirements:
+        _method:  GET
+        
+flydb_search_result:
+    pattern:  /search/{searchTerm}/{page}
+    defaults: { _controller: FlyFlydbBundle:Flyline:searchResult, searchTerm: null, page: 1  }
+    requirements:
+        _method:  GET
+        
+flydb_search_manage:
+    pattern:  /search_manage
+    defaults: { _controller: FlyFlydbBundle:Flyline:searchManage }
+    requirements:
+        _method:  GET
+        
+flydb_search_manage_result:
+    pattern:  /search_manage/{searchTerm}/{page}
+    defaults: { _controller: FlyFlydbBundle:Flyline:searchManageResult, searchTerm: null, page: 1  }
+    requirements:
+        _method:  GET
+        
 
 flyline_index:
-    pattern:  /flyline
-    defaults: { _controller: FlyFlydbBundle:Flyline:index }
+    pattern:  /flyline/{page}
+    defaults: { _controller: FlyFlydbBundle:Flyline:index, page: 1 }
+    requirements:
+        _method:  GET
+        page: \d+
 
 flyline_show:
-    pattern:  /{id}
+    pattern:  /flyline/show/{id}
     defaults: { _controller: FlyFlydbBundle:Flyline:show }
     requirements:
         _method:  GET
@@ -17,3 +48,14 @@ fly_flydb_manage:
     resource: "@FlyFlydbBundle/Resources/config/routing/flymanage.yml"
     prefix:   /manage
 
+fly_export_csv:
+    pattern:  /export
+    defaults: { _controller: FlyFlydbBundle:Flyline:exportCsv }
+    requirements:
+        _method:  GET
+        
+fly_user_export_csv:
+    pattern:  /user_export
+    defaults: { _controller: FlyFlydbBundle:Flyline:exportUserCsv }
+    requirements:
+        _method:  GET

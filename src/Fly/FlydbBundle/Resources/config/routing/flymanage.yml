@@ -1,40 +1,59 @@
 flymanage:
-    pattern:  /
-    defaults: { _controller: "FlyFlydbBundle:Flyline:manage" }
+    pattern:  /{page}
+    defaults: { _controller: "FlyFlydbBundle:Flyline:manage", page: 1 }
+    requirements:
+        _method:  GET
+        page: \d+
 
 flymanage_show:
     pattern:  /{id}/show
     defaults: { _controller: "FlyFlydbBundle:Flyline:show" }
+    requirements:
+        _method:  GET
+        id: \d+
 
 flymanage_new:
     pattern:  /new
     defaults: { _controller: "FlyFlydbBundle:Flyline:new" }
+    requirements: 
+        _method: GET
 
 flymanage_create:
     pattern:  /create
     defaults: { _controller: "FlyFlydbBundle:Flyline:create" }
-    requirements: { _method: post }
+    requirements: 
+        _method: POST
 
 flymanage_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "FlyFlydbBundle:Flyline:edit" }
+    requirements:
+        _method:  GET
+        id: \d+
 
 flymanage_update:
     pattern:  /{id}/update
     defaults: { _controller: "FlyFlydbBundle:Flyline:update" }
-    requirements: { _method: post }
+    requirements:
+        _method:  POST
+        id: \d+
 
 flymanage_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "FlyFlydbBundle:Flyline:delete" }
-    requirements: { _method: post }
+    requirements:
+        _method:  POST
+        id: \d+
 
 flymanage_care:
     pattern:  /{id}/care
     defaults: { _controller: "FlyFlydbBundle:Flyline:care" }
-    requirements: { _method: post }
-    
+    requirements:
+        _method:  POST
+        id: \d+
+
 flymanage_care_multiple:
     pattern:  /caremultiple
     defaults: { _controller: "FlyFlydbBundle:Flyline:careMultiple" }
-    requirements: { _method: post }
+    requirements:
+        _method:  POST
