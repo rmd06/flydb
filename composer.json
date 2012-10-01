@@ -1,6 +1,6 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "name": "singingstars/flydb",
+    "description": "The \"Simple fly management\" web application",
     "autoload": {
         "psr-0": { "": "src/" }
     },
