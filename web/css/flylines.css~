@@ -9,9 +9,22 @@
 
 .flyline_list
 {
- width: 760px;
+ width: 96%;
  margin: 0 auto;
 }
+
+.flyline_list #checkbox { width: 2%; }
+.flyline_list #name { width: 15%; }
+.flyline_list #owner { width: 7% }
+.flyline_list #genotype { width: 22%; }
+.flyline_list #location { width: 11%; }
+.flyline_list #origin { width: 13%; }
+.flyline_list #tag { width: 9%; }
+.flyline_list #note { width: 11%; }
+.flyline_list #cared { width: 10%; }
+
+.flyline_list td#genotype { font-size: 80%; }
+.flyline_list td#location { font-size: 80%; }
 
 .flyline_list tr.even
 {
@@ -283,7 +296,7 @@ input[type=checkbox]
 {
   border: 1px solid #2b66a5;
   color: #000;
-  background-color: #FFFF80;
+  background-color: #90EE90;
 }
 
 .pagination img
