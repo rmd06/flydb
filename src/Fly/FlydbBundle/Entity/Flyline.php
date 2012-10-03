@@ -4,6 +4,7 @@ namespace Fly\FlydbBundle\Entity;
 
 use Fly\FlydbBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Fly\FlydbBundle\Repository\FlylineRepository")
@@ -21,21 +22,25 @@ class Flyline
     
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $name;
     
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $genotype;
     
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="flylines")
+     * @Assert\NotBlank()
      */
     protected $location;
     
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     protected $cared;
     
@@ -63,11 +68,13 @@ class Flyline
     
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     protected $created;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     protected $updated;
     
