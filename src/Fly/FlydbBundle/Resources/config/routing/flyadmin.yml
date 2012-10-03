@@ -1,0 +1,3 @@
+flyadmin_rebuild_user_acl:
+    pattern:  /rebuild_user_acl
+    defaults: { _controller: "FlyFlydbBundle:Admin:rebuildUserAcl" }
