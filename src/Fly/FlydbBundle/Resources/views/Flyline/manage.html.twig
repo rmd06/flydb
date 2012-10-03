@@ -44,16 +44,16 @@
                 <label for="checkbox{{ entity.id }}"></label>
                 </div>
             </td>
-{#            <td class="manage_tools" class="manage_tools"> <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">Edit</a> </td>
+{#            <td class="manage_tools" class="manage_tools"> <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">Edit</a></span></td>
 #}
-            <td class="name"><a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-            <td class="owner">{{ entity.owner }}</td>
-            <td class="genotype">{{ entity.genotype }}</td>
-            <td class="location">{{ entity.location }}</td>
-            <td class="origin">{{ entity.origin }}</td>
-            <td class="tag">{{ entity.tag }}</td>
-            <td class="note"><a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></td>
-            <td class="cared">{% if entity.cared %}{{ entity.cared|daysToNow }}{% endif %}</td>
+            <td class="name"><span><a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">{{ entity.name }}</span></a></td>
+            <td class="owner"><span>{{ entity.owner }}</span></td>
+            <td class="genotype"><span>{{ entity.genotype }}</span></td>
+            <td class="location"><span>{{ entity.location }}</span></td>
+            <td class="origin"><span>{{ entity.origin }}</span></td>
+            <td class="tag"><span>{{ entity.tag }}</span></td>
+            <td class="note"><span><a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></span></td>
+            <td class="cared">{% if entity.cared %}<span>{{ entity.cared|daysToNow }}</span>{% endif %}</td>
         </tr>
     {% endfor %}
     </tbody>

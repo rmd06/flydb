@@ -53,7 +53,15 @@
 
 .flyline_list td:hover
 {
-  overflow: visible;  
+  overflow: visible;
+  background-color: #ffff66;
+}
+
+.flyline_list td span:hover
+{
+  overflow: visible;
+  background-color: #ffff66;
+  opacity: 1;
 }
 
 .flyline_list th

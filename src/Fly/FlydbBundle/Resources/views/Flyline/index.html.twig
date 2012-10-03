@@ -21,14 +21,14 @@
     <tbody>
     {% for i, entity in pager.currentPageResults %}
         <tr class="{{ cycle(['odd', 'even'], i) }}">
-            <td class="name"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-            <td class="owner">{{ entity.owner }}</td>
-            <td class="genotype">{{ entity.genotype }}</td>
-            <td class="location">{{ entity.location }}</td>
-            <td class="origin">{{ entity.origin }}</td>
-            <td class="tag">{{ entity.tag }}</td>
-            <td class="note"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></td>
-            <td class="cared">{% if entity.cared %}{{ entity.cared|daysToNow }}{% endif %}</td>
+            <td class="name"><span><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.name }}</a></span></td>
+            <td class="owner"><span>{{ entity.owner }}</span></td>
+            <td class="genotype"><span>{{ entity.genotype }}</span></td>
+            <td class="location"><span>{{ entity.location }}</span></td>
+            <td class="origin"><span>{{ entity.origin }}</span></td>
+            <td class="tag"><span>{{ entity.tag }}</span></td>
+            <td class="note"><span><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></span></td>
+            <td class="cared">{% if entity.cared %}<span>{{ entity.cared|daysToNow }}</span>{% endif %}</td>
         </tr>
     {% endfor %}
     </tbody>
