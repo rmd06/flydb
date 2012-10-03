@@ -42,7 +42,7 @@
     <form class="search_form" method="get" action="{{ path('flydb_search') }}">
         <input id="search_text" onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}" type="text" value="Search..." name="searchTerm">
         <input id="submit_button" type="submit" value="Go" >
-        <div class="help">Hit "Enter" to Search. Operators: "AND" "NOT" ...</div>
+        <div class="help">Hit "Enter" to Search. Supports <a href="http://lucene.apache.org/core/old_versioned_docs/versions/3_0_0/queryparsersyntax.html" target="_blank">Lucene syntax</a>.</div>
     </form>
 </div>
 </div>
