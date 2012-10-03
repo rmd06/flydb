@@ -1,7 +1,7 @@
 #flylines
 {
   width: 88%;
-  max-width: 88%;
+  max-width: 830px;
   margin: 0px;
   position: relative;
 
@@ -10,24 +10,25 @@
 
 .flyline_list
 {
-  width: 96%;
-  max-width: 96%;
+  width: 820px;
   margin: 0 auto;
+  table-layout: fixed;
 }
 
-.flyline_list #checkbox { max-width: 2%; }
-.flyline_list #name { max-width: 15%; }
-.flyline_list #owner { max-width: 7% }
-.flyline_list #genotype { max-width: 22%; }
-.flyline_list #location { max-width: 11%; }
-.flyline_list #origin { max-width: 13%; }
-.flyline_list #tag { max-width: 9%; }
-.flyline_list #note { max-width: 11%; }
-.flyline_list #cared { max-width: 10%; }
+.flyline_list .checkbox { width: 3%; }
+.flyline_list .name { width: 15%; }
+.flyline_list .owner { width: 8% }
+.flyline_list .genotype { width: 22%; }
+.flyline_list .location { width: 11%; }
+.flyline_list .origin { width: 12%; }
+.flyline_list .tag { width: 9%; }
+.flyline_list .note { width: 11%; }
+.flyline_list .cared { width: 9%; }
 
-.flyline_list td#genotype { font-size: 80%; }
-.flyline_list td#location { font-size: 80%; }
-.flyline_list td#cared { font-size: 80%; }
+.flyline_list td.checkbox { padding: 2px; }
+.flyline_list td.genotype { font-size: 80%; }
+.flyline_list td.location { font-size: 80%; }
+.flyline_list td.cared { font-size: 80%; }
 
 .flyline_list tr.even
 {
@@ -52,7 +53,7 @@
 
 .flyline_list td:hover
 {
-  overflow: visible;
+  overflow: visible;  
 }
 
 .flyline_list th

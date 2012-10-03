@@ -8,27 +8,27 @@
 <table class="flyline_list">
     <thead>
         <tr class="header">
-            <th id="name">Name</th>
-            <th id="owner">Owner</th>
-            <th id="genotype">Genotype</th>
-            <th id="location">Location</th>
-            <th id="origin">Origin</th>
-            <th id="tag">Tag</th>
-            <th id="note">Note</th>
-            <th id="cared">Last Cared</th>
+            <th class="name">Name</th>
+            <th class="owner">Owner</th>
+            <th class="genotype">Genotype</th>
+            <th class="location">Location</th>
+            <th class="origin">Origin</th>
+            <th class="tag">Tag</th>
+            <th class="note">Note</th>
+            <th class="cared">Last Cared</th>
         </tr>
     </thead>
     <tbody>
     {% for i, entity in pager.currentPageResults %}
         <tr class="{{ cycle(['odd', 'even'], i) }}">
-            <td id="name"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-            <td id="owner">{{ entity.owner }}</td>
-            <td id="genotype">{{ entity.genotype }}</td>
-            <td id="location">{{ entity.location }}</td>
-            <td id="origin">{{ entity.origin }}</td>
-            <td id="tag">{{ entity.tag }}</td>
-            <td id="note"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></td>
-            <td id="cared">{% if entity.cared %}{{ entity.cared|daysToNow }}{% endif %}</td>
+            <td class="name"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td class="owner">{{ entity.owner }}</td>
+            <td class="genotype">{{ entity.genotype }}</td>
+            <td class="location">{{ entity.location }}</td>
+            <td class="origin">{{ entity.origin }}</td>
+            <td class="tag">{{ entity.tag }}</td>
+            <td class="note"><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></td>
+            <td class="cared">{% if entity.cared %}{{ entity.cared|daysToNow }}{% endif %}</td>
         </tr>
     {% endfor %}
     </tbody>
