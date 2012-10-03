@@ -47,6 +47,12 @@
 {
   padding: 2px 10px;
   border-bottom: 1px dotted #999;
+  overflow: hidden;
+}
+
+.flyline_list td:hover
+{
+  overflow: visible;
 }
 
 .flyline_list th
