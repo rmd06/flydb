@@ -59,3 +59,7 @@ fly_user_export_csv:
     defaults: { _controller: FlyFlydbBundle:Flyline:exportUserCsv }
     requirements:
         _method:  GET
+
+fly_flydb_admin:
+    resource: "@FlyFlydbBundle/Resources/config/routing/flyadmin.yml"
+    prefix:   /
