@@ -1,174 +1,88 @@
-Symfony Standard Edition
-========================
+Flydb 
+=====
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony2
-application that you can use as the skeleton for your new applications.
+This is a simple fly (*Drosophila*) management web application, 
+written for easy laboratory fly stock management and sharing.
 
-This document contains information on how to download, install, and start
-using Symfony. For a more detailed explanation, see the [Installation][1]
-chapter of the Symfony Documentation.
+It is a project using Symfony2 by a novice web developer (also a young 
+biologist, coincidentally), as his first web project, partly for fun.
+So, although it is ready to use :), no test has been written so far :(
 
-1) Installing the Standard Edition
-----------------------------------
+1) Get the Flydb codes
+----------------------
 
-When it comes to installing the Symfony Standard Edition, you have the
-following options.
+Download the codes. For example, using `git`
 
-### Use Composer (*recommended*)
+    git clone https://github.com/singingstars/flydb.git flydb-or-whatever-folder-name
+    cd flydb-or-whatever-folder-name
 
-As Symfony uses [Composer][2] to manage its dependencies, the recommended way
-to create a new project is to use it.
+2) Install dependencies 
+-----------------------
 
-If you don't have Composer yet, download it following the instructions on
-http://getcomposer.org/ or just run the following command:
+### Get `composer`
 
     curl -s http://getcomposer.org/installer | php
 
-Then, use the `create-project` command to generate a new Symfony application:
+### Install vendor libaries
 
-    php composer.phar create-project symfony/framework-standard-edition path/to/install
+    php composer.phar update
 
-Composer will install Symfony and all its dependencies under the
-`path/to/install` directory.
+### Install [elastic search][4]
 
-### Download an Archive File
+Refer to [this note][5] for Ubuntu 12.04 or [elastic search installation][6]
+After that, probably you need `php-curl`
 
-To quickly test Symfony, you can also download an [archive][3] of the Standard
-Edition and unpack it somewhere under your web server root directory.
+    sudo apt-get install php5-curl
 
-If you downloaded an archive "without vendors", you also need to install all
-the necessary dependencies. Download composer (see above) and run the
-following command:
+3) Setup `Symfony2`
+-------------------
 
-    php composer.phar install
+It's easier to setup a basic Symfony2 project, and then change the web root
+to flydb's `web/`
+Refer to the [Symfony2 documentation on installation][1]
 
-2) Checking your System Configuration
--------------------------------------
+Use command `php app/check.php` to check the setup
 
-Before starting coding, make sure that your local system is properly
-configured for Symfony.
+Don't forget to modify permissions
 
-Execute the `check.php` script from the command line:
+    rm -rf app/cache/*
+    rm -rf app/logs/*
 
-    php app/check.php
+    sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+    sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
 
-Access the `config.php` script from a browser:
+4) Setup database and (optionally) prepare sample data
+------------------------------------------------------
 
-    http://localhost/path/to/symfony/app/web/config.php
+Inside the app,
 
-If you get any warnings or recommendations, fix them before moving on.
+    cp app/config/parameters.yml.dist app/config/parameters.yml
 
-3) Browsing the Demo Application
---------------------------------
+and do config according to Symfony2 [docs][2], then update database schema
 
-Congratulations! You're now ready to use Symfony.
+    php app/console doctrine:database:create
+    php app/console doctrine:schema:update --force
 
-From the `config.php` page, click the "Bypass configuration and go to the
-Welcome page" link to load up your first Symfony page.
+Optionally, some test data is ready for import (do not do this when data
+already exists in your database)
 
-You can also use a web-based configurator by clicking on the "Configure your
-Symfony Application online" link of the `config.php` page.
+    php app/console doctrine:fixtures:load
 
-To see a real-live Symfony page in action, access the following page:
+5) Done.
+--------
 
-    web/app_dev.php/demo/hello/Fabien
+Should return to you a nice web page when accessed from a browser.
 
-4) Getting started with Symfony
--------------------------------
+Of course, the look is greatly copied from [Twig website][3]
+and the codes, a little messy.
 
-This distribution is meant to be the starting point for your Symfony
-applications, but it also contains some sample code that you can learn from
-and play with.
+Also, a backend management for users and locations has yet to be setup.
+Hopefully I will have time to make the improvements.
 
-A great way to start learning Symfony is via the [Quick Tour][4], which will
-take you through all the basic features of Symfony2.
-
-Once you're feeling good, you can move onto reading the official
-[Symfony2 book][5].
-
-A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After
-playing with it, you can remove it by following these steps:
-
-  * delete the `src/Acme` directory;
-
-  * remove the routing entries referencing AcmeBundle in
-    `app/config/routing_dev.yml`;
-
-  * remove the AcmeBundle from the registered bundles in `app/AppKernel.php`;
-
-  * remove the `web/bundles/acmedemo` directory;
-
-  * remove the `security.providers`, `security.firewalls.login` and
-    `security.firewalls.secured_area` entries in the `security.yml` file or
-    tweak the security configuration to fit your needs.
-
-What's inside?
----------------
-
-The Symfony Standard Edition is configured with the following defaults:
-
-  * Twig is the only configured template engine;
-
-  * Doctrine ORM/DBAL is configured;
-
-  * Swiftmailer is configured;
-
-  * Annotations for everything are enabled.
-
-It comes pre-configured with the following bundles:
-
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
-    library
-
-  * [**JMSSecurityExtraBundle**][13] - Allows security to be added via
-    annotations
-
-  * [**JMSDiExtraBundle**][14] - Adds more powerful dependency injection
-    features
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][15] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **AcmeDemoBundle** (in dev/test env) - A demo bundle with some example
-    code
-
-Enjoy!
 
 [1]:  http://symfony.com/doc/2.1/book/installation.html
-[2]:  http://getcomposer.org/
-[3]:  http://symfony.com/download
-[4]:  http://symfony.com/doc/2.1/quick_tour/the_big_picture.html
-[5]:  http://symfony.com/doc/2.1/index.html
-[6]:  http://symfony.com/doc/2.1/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  http://symfony.com/doc/2.1/book/doctrine.html
-[8]:  http://symfony.com/doc/2.1/book/templating.html
-[9]:  http://symfony.com/doc/2.1/book/security.html
-[10]: http://symfony.com/doc/2.1/cookbook/email.html
-[11]: http://symfony.com/doc/2.1/cookbook/logging/monolog.html
-[12]: http://symfony.com/doc/2.1/cookbook/assetic/asset_management.html
-[13]: http://jmsyst.com/bundles/JMSSecurityExtraBundle/master
-[14]: http://jmsyst.com/bundles/JMSDiExtraBundle/master
-[15]: http://symfony.com/doc/2.1/bundles/SensioGeneratorBundle/index.html
+[2]:  http://symfony.com/doc/2.1/book/doctrine.html
+[3]:  http://twig.sensiolabs.org/
+[4]:  http://www.elasticsearch.org/
+[5]:  https://gist.github.com/3820505
+[6]:  http://www.elasticsearch.org/guide/reference/setup/installation.html
