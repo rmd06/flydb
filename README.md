@@ -2,7 +2,7 @@ Flydb
 =====
 
 This is a simple fly (*Drosophila*) management web application, 
-written for easy laboratory fly stock management and sharing.
+written to easy laboratory fly stock management and sharing.
 
 It is a project using Symfony2 by a novice web developer (also a young 
 biologist, coincidentally), as his first web project, partly for fun.
