@@ -1,3 +1,5 @@
-flyadmin_rebuild_user_acl:
-    pattern:  /rebuild_user_acl
-    defaults: { _controller: "FlyFlydbBundle:Admin:rebuildUserAcl" }
+# rebuild user acl is a work around for setting acl after directly
+# importing data into `flyline` table, do not use otherwise 
+#flyadmin_rebuild_user_acl:
+#    pattern:  /rebuild_user_acl
+#    defaults: { _controller: "FlyFlydbBundle:Admin:rebuildUserAcl" }
