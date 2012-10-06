@@ -77,7 +77,54 @@ class Flyline
      * @Assert\DateTime()
      */
     protected $updated;
+
+    public function setBlankForNull()
+    {
+        if ( is_null($this->origin) ) 
+            $this->origin = "";
+            
+        if ( is_null($this->tag) ) 
+            $this->tag = "";
+            
+        if ( is_null($this->note) ) 
+            $this->note = "";
+    }
     
+    /**
+     * @ORM\PrePersist
+     */
+    public function setDateTimePrePersist()
+    {
+        $newDateTime = new \DateTime();
+        $this->created = $newDateTime;
+        $this->updated = $newDateTime;
+        $this->cared = $newDateTime;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setBlankForNullPrePersist()
+    {
+        $this->setBlankForNull();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setBlankForNullPreUpdate()
+    {
+        $this->setBlankForNull();
+    }
+
     /**
      * Get id
      *
@@ -184,17 +231,6 @@ class Flyline
     }
 
     /**
-     * @ORM\PrePersist
-     */
-    public function setDateTimePrePersist()
-    {
-        $newDateTime = new \DateTime();
-        $this->created = $newDateTime;
-        $this->updated = $newDateTime;
-        $this->cared = $newDateTime;
-    }
-
-    /**
      * Get created
      *
      * @return \DateTime 
@@ -202,14 +238,6 @@ class Flyline
     public function getCreated()
     {
         return $this->created;
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->updated = new \DateTime();
     }
 
     /**
