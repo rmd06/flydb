@@ -1,10 +1,10 @@
 {% extends 'FlyFlydbBundle::layout.html.twig' %}
 
 {% block body %}
+
+<h1>Edit: {{ entity.name }}</h1>
+    
 <div class="flyline_form">
-
-    <h1>Edit Flyline</h1>
-
     <form class="flyline_form" action="{{ path('flymanage_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         {{ form_widget(edit_form) }}
         <p>
@@ -12,30 +12,33 @@
         </p>
     </form>
 
-    <form class="button_form" action="{{ path('flymanage_delete', { 'id': entity.id }) }}" method="post">
+    <form class="delete_button_form" action="{{ path('flymanage_delete', { 'id': entity.id }) }}" method="post">
         {{ form_widget(delete_form) }}
         <p>
-            <button type="submit" onclick="if(!confirm('Are you sure to delete this fly line?')) { return false; }">Delete this record!</button>
+            <button type="submit" onclick="if(!confirm('Are you SURE to delete this fly line?')) { return false; }">Delete this record!</button>
         </p>
     </form>
-
-    <table class="manage_tools">
-    <tbody>
-        <tr>
-            <td>
-                <a href="{{ path('flymanage') }}">
-                    Back to management list
-                </a>
-            </td>
-            <td>
-                <a href="{{ path('flymanage_care', { 'id': entity.id }) }}">
-                    Care
-                </a>
-            </td>
-        </tr>
-
-    </tbody>
-    </table>
-
 </div>
+
+<table class="manage_tools">
+<tbody>
+    <tr>
+        <td>
+            <a href="{{ path('flymanage') }}">
+                Management List
+            </a>
+        </td>
+        <td>
+            <a href="{{ path('flymanage_care', { 'id': entity.id }) }}">
+                Care
+            </a>
+        </td>
+        <td>
+            <a href="{{ path('flyline_show', { 'id': entity.id }) }}">
+                View
+            </a>
+        </td>
+    </tr>
+</tbody>
+</table>
 {% endblock %}

@@ -79,6 +79,11 @@
   border-right: 1px dotted #999;
 }
 
+.flyline_info, .flyline_form
+{
+  font-size: 1.25em;
+}
+
 .flyline_info th
 {
   text-align: right;
@@ -127,127 +132,15 @@
   padding: 0px 10px;
 }
 
-/* customize checkbox, only works with javascript, IE>8 and other browsers  */
-/*
-input[type=checkbox]
+.delete_button_form
 {
-  visibility: hidden;
-}
-
-.multi_checkbox
-{
-  width: 22px;
-  height: 22px;
-  position: relative;
-  background: #ffffff;
-  margin: 2px auto;
-}
-
-.multi_checkbox label
-{
-  cursor: pointer;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 1px;
-  top: 1px;
-  border-radius: 4px;
-  
-  #background: #ffffff;
-  -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-  moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-}
-
-.multi_checkbox label:after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
-  opacity: 0;
-  content: '';
-  position: absolute;
-  width: 13px;
-  height: 7px;
-  background: transparent;
-  top: 4px;
-  left: 3px;
-  border: 3px solid #000;
-  border-top: none;
-  border-right: none;
-
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-
-.multi_checkbox label:hover::after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
-  filter: alpha(opacity=30);
-  opacity: 0.3;
-}
-
-.multicheckbox input[type=checkbox]:checked + label:after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  filter: alpha(opacity=100);
-  opacity: 1;
-}
-*/
-
-
-.flylines .location
-{
-  color: #524F46;
-  font-weight: bold;
-  width: 30%;
-}
-
-.flylines .company
-{
-  color: #d2813f;
-  width: 30%;
-}
-
-.flylines .position
-{
-  padding: 0;
-  color: #524F46;
-  width: 40%;
-}
-
-.flylines .position a
-{
-  padding: 12px 15px;
-  display: block;
-  text-decoration: none;
-}
-
-.flylines .position a:hover
-{
-  text-decoration: underline;
-}
-
-.more_flylines
-{
+  color: #BFBFBF;
   text-align: right;
-  text-transform: uppercase;
-  font-size: 85%;
-  margin: 5px 15px 15px;
-  clear: both;
 }
 
-.more_flylines a
+.delete_button_form button
 {
-  color: #176f94;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 130%;
-}
-
-.more_flylines a:hover
-{
-  color: #176f94;
-  text-decoration: underline;
+  color: #BFBFBF;
 }
 
 .pagination_desc
