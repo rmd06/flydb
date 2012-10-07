@@ -52,7 +52,7 @@
             <td class="location"><span>{{ entity.location }}</span></td>
             <td class="origin"><span>{{ entity.origin }}</span></td>
             <td class="tag"><span>{{ entity.tag }}</span></td>
-            <td class="note"><span><a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></span></td>
+            <td class="note"><span><a href="{{ path('flyline_show', { 'id': entity.id }) }}">{{ entity.note(10) }}...</a></span></td>
             <td class="cared">{% if entity.cared %}<span>{{ entity.cared|daysToNow }}</span>{% endif %}</td>
         </tr>
     {% endfor %}

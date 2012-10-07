@@ -57,3 +57,10 @@ flymanage_care_multiple:
     defaults: { _controller: "FlyFlydbBundle:Flyline:careMultiple" }
     requirements:
         _method:  POST
+
+flymanage_copy:
+    pattern:  /{id}/copy
+    defaults: { _controller: "FlyFlydbBundle:Flyline:copy" }
+    requirements:
+        _method:  GET|POST
+        id: \d+

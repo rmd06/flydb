@@ -27,6 +27,90 @@ use Fly\FlydbBundle\Form\FlylineType;
  */
 class FlylineController extends Controller
 {
+    /**
+     * Lists all Flyline entities.
+     */
+    public function indexAction($page=null, $maxPerPage=10)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('FlyFlydbBundle:Flyline')->getLatestFlylines();
+
+        /* pagination */
+        $adapter = new ArrayAdapter($entities);
+        $pager = new Pagerfanta($adapter);
+        $pager->setMaxPerPage($maxPerPage);
+        
+        if (!$page)
+        {
+            $page = 1;
+        }
+        
+        try
+        {
+            $pager->setCurrentPage($page);
+        }
+        catch (NotValidCurrentPageException $e)
+        {
+            throw new NotFoundHttpException();
+        }
+        
+        return $this->render('FlyFlydbBundle:Flyline:index.html.twig', array(
+            'pager' => $pager,
+        ));
+    }
+
+    /**
+     * Lists all Flyline entities for management.
+     */
+    public function manageAction($page=null, $maxPerPage=15)
+    {
+        $securityContext = $this->get('security.context');
+        $user = $securityContext->getToken()->getUser();
+        
+        if (false === $securityContext->isGranted('ROLE_USER'))
+        {
+            throw new AccessDeniedException();
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($securityContext->isGranted('ROLE_ADMIN'))
+        {
+            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findBy(array(), array('cared' => 'ASC'));
+        } else {
+            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findBy(array('owner' => $user),
+                                                                        array('cared' => 'ASC'));
+        }
+                
+        /* pagination */
+        $adapter = new ArrayAdapter($entities);
+        $pager = new Pagerfanta($adapter);
+        $pager->setMaxPerPage($maxPerPage);
+        
+        if (!$page)
+        {
+            $page = 1;
+        }
+        
+        try
+        {
+            $pager->setCurrentPage($page);
+        }
+        catch (NotValidCurrentPageException $e)
+        {
+            throw new NotFoundHttpException();
+        }
+        
+        return $this->render('FlyFlydbBundle:Flyline:manage.html.twig', array(
+            'pager' => $pager,
+        ));
+    }
+    
+    /**
+     * Search, typically from a form submit. 
+     * Will redirect to searchResultAction.
+     */
     public function searchAction(Request $request)
     {
         $searchTerm = $request->query->get('searchTerm');
@@ -34,6 +118,9 @@ class FlylineController extends Controller
         return $this->redirect($this->generateUrl('flydb_search_result', array('searchTerm' => $searchTerm)));
     }
     
+    /**
+     * Search, can be from any GET request
+     */
     public function searchResultAction($searchTerm=null, $page=null, $maxPerPage=10)
     {
         $finder = $this->get('foq_elastica.finder.flydb.flyline');
@@ -63,7 +150,11 @@ class FlylineController extends Controller
             'pager' => $pager,
         ));
     }
-    
+        
+    /**
+     * Search and then manage, typically from a form submit. 
+     * Will redirect to searchManageResultAction.
+     */
     public function searchManageAction(Request $request)
     {
         $searchTerm = $request->query->get('searchTerm');
@@ -71,6 +162,9 @@ class FlylineController extends Controller
         return $this->redirect($this->generateUrl('flydb_search_manage_result', array('searchTerm' => $searchTerm)));
     }
     
+    /**
+     * Search and then manage, can be from any GET request
+     */
     public function searchManageResultAction($searchTerm=null, $page=null, $maxPerPage=15)
     {        
         $securityContext = $this->get('security.context');
@@ -162,6 +256,9 @@ class FlylineController extends Controller
         return $response;
     }
 
+    /**
+     * "Care" (look after) a fly line.
+     */
     public function careAction(Request $request, $id)
     {
         $securityContext = $this->get('security.context');
@@ -184,97 +281,10 @@ class FlylineController extends Controller
 
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
-    
-/*    private function createCareForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
-    }    
-*/    
-    /**
-     * Lists all Flyline entities.
-     *
-     */
-    public function indexAction($page=null, $maxPerPage=10)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('FlyFlydbBundle:Flyline')->getLatestFlylines();
-
-        /* pagination */
-        $adapter = new ArrayAdapter($entities);
-        $pager = new Pagerfanta($adapter);
-        $pager->setMaxPerPage($maxPerPage);
-        
-        if (!$page)
-        {
-            $page = 1;
-        }
-        
-        try
-        {
-            $pager->setCurrentPage($page);
-        }
-        catch (NotValidCurrentPageException $e)
-        {
-            throw new NotFoundHttpException();
-        }
-        
-        return $this->render('FlyFlydbBundle:Flyline:index.html.twig', array(
-            'pager' => $pager,
-        ));
-    }
 
     /**
-     * Lists all Flyline entities for management.
-     *
+     * "Care" (look after) many fly lines, typically from a form submit.
      */
-    public function manageAction($page=null, $maxPerPage=15)
-    {
-        $securityContext = $this->get('security.context');
-        $user = $securityContext->getToken()->getUser();
-        
-        if (false === $securityContext->isGranted('ROLE_USER'))
-        {
-            throw new AccessDeniedException();
-        }
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        if ($securityContext->isGranted('ROLE_ADMIN'))
-        {
-            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findBy(array(), array('cared' => 'ASC'));
-        } else {
-            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findBy(array('owner' => $user),
-                                                                        array('cared' => 'ASC'));
-        }
-                
-        /* pagination */
-        $adapter = new ArrayAdapter($entities);
-        $pager = new Pagerfanta($adapter);
-        $pager->setMaxPerPage($maxPerPage);
-        
-        if (!$page)
-        {
-            $page = 1;
-        }
-        
-        try
-        {
-            $pager->setCurrentPage($page);
-        }
-        catch (NotValidCurrentPageException $e)
-        {
-            throw new NotFoundHttpException();
-        }
-        
-        return $this->render('FlyFlydbBundle:Flyline:manage.html.twig', array(
-            'pager' => $pager,
-        ));
-    }
-    
     public function careMultipleAction(Request $request)
     {
         $securityContext = $this->get('security.context');
@@ -298,8 +308,55 @@ class FlylineController extends Controller
     }
 
     /**
-     * Finds and displays a Flyline entity.
-     *
+     * Copy a fly line, then edit
+     */
+    public function copyAction($id)
+    {
+        $securityContext = $this->get('security.context');
+        $user = $securityContext->getToken()->getUser();
+
+        if (false === $securityContext->isGranted('ROLE_USER'))
+        {
+            throw new AccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $flyline = $em->getRepository('FlyFlydbBundle:Flyline')->find($id);
+        
+        if (!$flyline) {
+            throw $this->createNotFoundException('Unable to find specified fly line.');
+        }
+
+        $new_flyline = new Flyline();
+        $new_flyline->setName($flyline->getName());
+        $new_flyline->setGenotype($flyline->getGenotype());
+        $new_flyline->setOrigin($flyline->getOrigin());
+        $new_flyline->setTag($flyline->getTag());
+        $new_flyline->setNote($flyline->getNote());
+        $new_flyline->setCreated(new \DateTime());
+        $new_flyline->setUpdated($new_flyline->getCreated());
+        $new_flyline->setCared($new_flyline->getCreated());
+        $new_flyline->setOwner($user);
+        $new_flyline->setLocation($flyline->getLocation());
+
+        $copyForm = $this->createForm(new FlylineType(), $new_flyline);
+
+        return $this->render('FlyFlydbBundle:Flyline:new.html.twig', array(
+            'entity' => $new_flyline,            
+            'form'   => $copyForm->createView(),
+        ));
+    }
+
+    /**
+     * Copy many fly lines, typically from a form submit.
+     */
+    public function copyMultipleAction(Request $request)
+    {
+        //TODO: add this action
+    }
+
+    /**
+     * Finds and displays a fly line.
      */
     public function showAction($id)
     {
@@ -319,8 +376,7 @@ class FlylineController extends Controller
     }
 
     /**
-     * Displays a form to create a new Flyline entity.
-     *
+     * Displays a form to create a new fly line.
      */
     public function newAction()
     {
@@ -335,7 +391,6 @@ class FlylineController extends Controller
 
     /**
      * Creates a new Flyline entity.
-     *
      */
     public function createAction(Request $request)
     {
@@ -381,7 +436,6 @@ class FlylineController extends Controller
 
     /**
      * Displays a form to edit an existing Flyline entity.
-     *
      */
     public function editAction($id)
     {
@@ -413,7 +467,6 @@ class FlylineController extends Controller
 
     /**
      * Edits an existing Flyline entity.
-     *
      */
     public function updateAction(Request $request, $id)
     {

@@ -88,7 +88,21 @@
 </tbody>
 </table>
 {% endif %}
-    
+
+{% if is_granted('ROLE_USER') %}
+<table class="manage_tools">
+<tbody>
+    <tr>
+        <td>
+            <a href="{{ path('flymanage_copy', { 'id': entity.id }) }}">
+                Create New Line From This
+            </a>
+        </td>
+    </tr>
+</tbody>
+</table>
+{% endif %}
+
 <table class="manage_tools">
 <tbody>
     <tr>
