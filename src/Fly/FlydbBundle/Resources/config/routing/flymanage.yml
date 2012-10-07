@@ -49,7 +49,7 @@ flymanage_care:
     pattern:  /{id}/care
     defaults: { _controller: "FlyFlydbBundle:Flyline:care" }
     requirements:
-        _method:  POST
+        _method:  GET|POST
         id: \d+
 
 flymanage_care_multiple:

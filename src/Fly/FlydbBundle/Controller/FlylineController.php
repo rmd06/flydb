@@ -125,12 +125,7 @@ class FlylineController extends Controller
         {
             throw new AccessDeniedException();
         }
-        
-/*        if ($securityContext->isGranted('ROLE_ADMIN'))
-        {
-            return $this->redirect($this->generateUrl('fly_export_csv'));
-        }
-*/        
+
         $em = $this->getDoctrine()->getManager();
         $flylines = $em->getRepository('FlyFlydbBundle:Flyline')->findByOwner($user);
         
@@ -171,39 +166,33 @@ class FlylineController extends Controller
     {
         $securityContext = $this->get('security.context');
        
-        $form = $this->createCareForm($id);
-        $form->bind($request);
+        $em = $this->getDoctrine()->getManager();
+        $flyline = $em->getRepository('FlyFlydbBundle:Flyline')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $flyline = $em->getRepository('FlyFlydbBundle:Flyline')->find($id);
-
-            if (!$flyline) {
-                throw $this->createNotFoundException('Unable to find specified fly line.');
-            }
-            
-            if (false === $securityContext->isGranted('EDIT', $flyline))
-            {
-                throw new AccessDeniedException();
-            }
-            
-            $flyline->setCared(new \DateTime());
-            $em->persist($flyline);
-            $em->flush();
+        if (!$flyline) {
+            throw $this->createNotFoundException('Unable to find specified fly line.');
         }
-        
+
+        if (false === $securityContext->isGranted('EDIT', $flyline))
+        {
+            throw new AccessDeniedException();
+        }
+
+        $flyline->setCared(new \DateTime());
+        $em->persist($flyline);
+        $em->flush();
+
         return $this->redirect($this->getRequest()->headers->get('referer'));
-        //return $this->redirect($this->generateUrl('flyline_show', array('id' => $id)));
     }
     
-    private function createCareForm($id)
+/*    private function createCareForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
             ->getForm()
         ;
     }    
-    
+*/    
     /**
      * Lists all Flyline entities.
      *
@@ -256,9 +245,10 @@ class FlylineController extends Controller
         
         if ($securityContext->isGranted('ROLE_ADMIN'))
         {
-            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->getLatestFlylines();
+            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findBy(array(), array('cared' => 'ASC'));
         } else {
-            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findByOwner($user);
+            $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findBy(array('owner' => $user),
+                                                                        array('cared' => 'ASC'));
         }
                 
         /* pagination */
@@ -305,10 +295,6 @@ class FlylineController extends Controller
         }
         
         return $this->redirect($this->getRequest()->headers->get('referer'));
-
-        //return $this->render('FlyFlydbBundle:Flyline:test.html.twig', array(
-            //'testout' => $flyline_ids,
-        //));
     }
 
     /**
@@ -326,11 +312,9 @@ class FlylineController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $careForm = $this->createCareForm($id);
 
         return $this->render('FlyFlydbBundle:Flyline:show.html.twig', array(
             'entity'      => $entity,
-            'care_form'   => $careForm->createView(),
             'delete_form' => $deleteForm->createView(),        ));
     }
 
@@ -445,7 +429,7 @@ class FlylineController extends Controller
         }
         
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Flyline entity.');
+            throw $this->createNotFoundException('Unable to find the Flyline.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -456,14 +440,10 @@ class FlylineController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('flymanage_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('flyline_show', array('id' => $id)));
         }
 
-        return $this->render('FlyFlydbBundle:Flyline:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->redirect($this->generateUrl('flymanage_edit', array('id' => $id)));
     }
 
     /**
