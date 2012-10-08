@@ -5,6 +5,32 @@
 <div id="flyline">
 <h1>Line: {{ entity.name }}</h1>
 
+{% if is_granted('ROLE_USER') %}
+<table class="manage_tools" id="edit_tools">
+<tbody>
+{% if is_granted('EDIT', entity) %}
+<tr>
+    <td>
+        <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </td>
+    <td>
+        <a href="{{ path('flymanage_care', { 'id': entity.id }) }}">
+            Care
+        </a>
+    </td>
+{% endif %}
+    <td>
+        <a href="{{ path('flymanage_copy', { 'id': entity.id }) }}">
+            Create New Line From This
+        </a>
+    </td>
+</tr>
+</tbody>
+</table>
+{% endif %}
+
 <table class="flyline_info">
     <tbody>
         <tr>
@@ -62,65 +88,24 @@
     </tbody>
 </table>
 
-{% if is_granted('EDIT', entity) %}
-<table class="manage_tools">
+<table class="manage_tools" id="list_tools">
 <tbody>
-<tr>
-    <td>
-        <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </td>
-{#    {% if is_granted('DELETE', entity) %}
-    <td>
-        <a href="{{ path('flymanage_delete', { 'id': entity.id }) }}">
-            Delete
-        </a>
-    </td>
-    {% endif %}
-#}
-    <td>
-        <a href="{{ path('flymanage_care', { 'id': entity.id }) }}">
-            Care
-        </a>
-    </td>
-</tr>
-</tbody>
-</table>
-{% endif %}
-
-{% if is_granted('ROLE_USER') %}
-<table class="manage_tools">
-<tbody>
-    <tr>
-        <td>
-            <a href="{{ path('flymanage_copy', { 'id': entity.id }) }}">
-                Create New Line From This
-            </a>
-        </td>
-    </tr>
-</tbody>
-</table>
-{% endif %}
-
-<table class="manage_tools">
-<tbody>
-    <tr>
-        <td>
-            <a href="{{ path('flyline_index') }}">
-                Back to Flyline list
-            </a>
-        </td>
-    </tr>
     {% if is_granted('EDIT', entity) %}
     <tr>
         <td>
             <a href="{{ path('flymanage') }}">
-                Back to management list
+                To management list
             </a>
         </td>
     </tr>
     {% endif %}
+    <tr>
+        <td>
+            <a href="{{ path('flyline_index') }}">
+                To Flyline list
+            </a>
+        </td>
+    </tr>
 </tbody>
 </table>
 

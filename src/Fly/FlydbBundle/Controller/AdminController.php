@@ -22,17 +22,18 @@ use Fly\FlydbBundle\Form\FlylineType;
 
 class AdminController extends Controller
 {
-    public function rebuildUserAclAction()
+    public function rebuildUserAclAction($user_id)
     {
         $securityContext = $this->get('security.context');
-        $user = $securityContext->getToken()->getUser();
+//        $user = $securityContext->getToken()->getUser();
 
-        if (false === $securityContext->isGranted('ROLE_USER'))
+        if (false === $securityContext->isGranted('ROLE_ADMIN'))
         {
             throw new AccessDeniedException();
         }
 
         $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('FlyFlydbBundle:User')->find($user_id);
         $flylines = $em->getRepository('FlyFlydbBundle:Flyline')->findByOwner($user);
         
         foreach ( $flylines as $flyline )
@@ -41,13 +42,20 @@ class AdminController extends Controller
             $em->persist($flyline);
             $em->flush();
             
-            if ( false === $securityContext->isGranted('OWNER', $flyline) )
+            if ( false === $securityContext->isGranted('MASTER', $flyline) )
             {
-                // creating the ACL
+                // creating the ACL (deals with when exists)
                 $aclProvider = $this->get('security.acl.provider');
                 $objectIdentity = ObjectIdentity::fromDomainObject($flyline);
                 
-                $acl = $aclProvider->createAcl($objectIdentity);
+                try
+                {
+                   $acl = $aclProvider->findAcl($objectIdentity);
+                }
+                catch (\Symfony\Component\Security\Acl\Exception\Exception $e)
+                {
+                   $acl = $aclProvider->createAcl($objectIdentity);
+                }
 
                 // retrieving the security identity of the currently logged-in user
                 $securityIdentity = UserSecurityIdentity::fromAccount($user);

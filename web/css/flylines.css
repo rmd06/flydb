@@ -101,13 +101,26 @@
   background-color: #90EE90;
 }
 
+.manage_tools
+{
+  font-size: 1.5em;
+  #font-family: Arial,Tahoma,Verdana;
+}
+
+.manage_tools#edit_tools, .manage_tools#list_tools
+{
+  margin: 0px 0px 20px 0px;
+}
+
 .manage_tools a:hover
 {
-  background-color: #90EE90;
+  #background-color: #90EE90;
+  border: 1px inset #e3e3e3;
 }
 
 .manage_tools a
 {
+  color: #595959;
   background-color: #f1f1f1;
   border: 1px outset #e3e3e3;
   text-decoration: none;
@@ -119,7 +132,6 @@
 {
   padding: 10px 5px;
 }
-
 
 #flyManageForm button
 {

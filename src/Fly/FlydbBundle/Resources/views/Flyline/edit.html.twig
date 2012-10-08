@@ -3,39 +3,58 @@
 {% block body %}
 
 <h1>Edit: {{ entity.name }}</h1>
-    
+
+<table class="manage_tools" id="edit_tools">
+<tbody>
+<tr>
+    <td>
+        <a href="{{ path('flyline_show', { 'id': entity.id }) }}">
+            View
+        </a>
+    </td>
+    <td>
+        <a href="{{ path('flymanage_care', { 'id': entity.id }) }}">
+            Care
+        </a>
+    </td>
+    <td>
+        <a href="{{ path('flymanage_copy', { 'id': entity.id }) }}">
+            Create New Line From This
+        </a>
+    </td>
+</tr>
+</tbody>
+</table>
+
 <div class="flyline_form">
     <form class="flyline_form" action="{{ path('flymanage_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         {{ form_widget(edit_form) }}
-        <p>
+        <span>
             <button class="button" type="submit">Confirm Updates</button>
-        </p>
+        </span>
     </form>
 
     <form class="delete_button_form" action="{{ path('flymanage_delete', { 'id': entity.id }) }}" method="post">
         {{ form_widget(delete_form) }}
-        <p>
+        <span>
             <button type="submit" onclick="if(!confirm('Are you SURE to delete this fly line?')) { return false; }">Delete this record!</button>
-        </p>
+        </span>
     </form>
 </div>
 
-<table class="manage_tools">
+<table class="manage_tools" id="list_tools">
 <tbody>
     <tr>
         <td>
             <a href="{{ path('flymanage') }}">
-                Management List
+                To Management List
             </a>
         </td>
+    </tr>
+    <tr>
         <td>
-            <a href="{{ path('flymanage_care', { 'id': entity.id }) }}">
-                Care
-            </a>
-        </td>
-        <td>
-            <a href="{{ path('flyline_show', { 'id': entity.id }) }}">
-                View
+            <a href="{{ path('flyline_index') }}">
+                To Flyline list
             </a>
         </td>
     </tr>
