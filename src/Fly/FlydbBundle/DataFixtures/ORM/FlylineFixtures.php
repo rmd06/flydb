@@ -94,7 +94,7 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $flyline4->setOwner($userB);
         $flyline4->setLocation($location3);
         $manager->persist($flyline4);
-                                
+        
         $manager->flush();
         
         $this->addReference('flyline1', $flyline1);
@@ -102,6 +102,7 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $this->addReference('flyline3', $flyline3);
         $this->addReference('flyline4', $flyline4);
         
+
         /**
          * add acls
          */
@@ -136,6 +137,32 @@ class FlylineFixtures extends AbstractFixture implements OrderedFixtureInterface
         $acl4->insertObjectAce($roleSecurityIdentity, MaskBuilder::MASK_MASTER);
         $aclProvider->updateAcl($acl4);
         
+        
+        // add many
+        for ( $i = 1; $i <= 30; $i++ )
+        {
+            $fl = new Flyline();
+            $fl->setName('Flyline'.$i);
+            $fl->setGenotype(';; A['.$i.'];');
+            $fl->setOrigin('here');
+            $fl->setTag('fly-'.$i);
+            $fl->setNote("A very good GAL4 line");
+            $fl->setCreated(new \DateTime());
+            $fl->setUpdated($fl->getCreated());
+            $fl->setCared($fl->getCreated());
+            $fl->setOwner($userB);
+            $fl->setLocation($location3);
+            $manager->persist($fl);
+            
+            $manager->flush();
+            
+            $oI = ObjectIdentity::fromDomainObject($fl);
+            $a = $aclProvider->createAcl($oI);
+            $sI = UserSecurityIdentity::fromAccount($userB);
+            $a->insertObjectAce($sI, MaskBuilder::MASK_OWNER);
+            $a->insertObjectAce($roleSecurityIdentity, MaskBuilder::MASK_MASTER);
+            $aclProvider->updateAcl($a);
+        }
     }
     
     public function getOrder()
