@@ -7,6 +7,4 @@ TODO
   *  location
   *  users
 
-3) A link to user profile, reset password etc.
-
-4) Filters for displaying flyline list, at least some sorting options.
+3) Filters for displaying flyline list, at least some sorting options.

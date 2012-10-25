@@ -1,6 +1,6 @@
 {
     "name": "singingstars/flydb",
-    "description": "The \"Simple fly management\" web application",
+    "description": "A simple fly(Drosophila) management web application",
     "autoload": {
         "psr-0": { "": "src/" }
     },
