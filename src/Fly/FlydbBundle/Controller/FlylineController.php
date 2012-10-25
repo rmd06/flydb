@@ -288,23 +288,27 @@ class FlylineController extends Controller
     public function careMultipleAction(Request $request)
     {
         $securityContext = $this->get('security.context');
-        $flyline_ids = $request->request->get('flylines');
+        $flyline_ids = $request->request->get('flyline_checkbox');
         
-        $em = $this->getDoctrine()->getManager();
-        
-        foreach ( $flyline_ids as $id )
+        if ($flyline_ids)
         {
-            $flyline = $em->getRepository('FlyFlydbBundle:Flyline')->find($id);
+            $em = $this->getDoctrine()->getManager();
             
-            if ( $flyline && (true === $securityContext->isGranted('EDIT', $flyline)) ) 
+            foreach ( $flyline_ids as $id )
             {
-                $flyline->setCared(new \DateTime());
-                $em->persist($flyline);
-                $em->flush();
+                $flyline = $em->getRepository('FlyFlydbBundle:Flyline')->find($id);
+                
+                if ( $flyline && (true === $securityContext->isGranted('EDIT', $flyline)) ) 
+                {
+                    $flyline->setCared(new \DateTime());
+                    $em->persist($flyline);
+                    $em->flush();
+                }
             }
         }
         
         return $this->redirect($this->getRequest()->headers->get('referer'));
+        
     }
 
     /**

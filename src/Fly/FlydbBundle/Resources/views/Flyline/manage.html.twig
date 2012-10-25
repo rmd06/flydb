@@ -40,7 +40,7 @@
         <tr class="{{ cycle(['odd', 'even'], i) }}">
             <td class="checkbox">
                 <label for="checkbox{{ entity.id }}">
-                    <input id="checkbox{{ entity.id }}" type="checkbox" value="{{ entity.id }}" name="flyline_checkbox" /> 
+                    <input id="checkbox{{ entity.id }}" type="checkbox" value="{{ entity.id }}" name="flyline_checkbox[]" /> 
                 </label>
             </td>
 {#            <td class="manage_tools" class="manage_tools"> <a href="{{ path('flymanage_edit', { 'id': entity.id }) }}">Edit</a></span></td>
@@ -60,13 +60,13 @@
 
 <table>
 <tr>
-<input type="button" value="Reverse Select" onclick="reverseAllCheckBoxes('flyManageForm', 'flyline_checkbox')">
+<input type="button" value="Reverse Select" onclick="reverseAllCheckBoxes('flyManageForm', 'flyline_checkbox[]')">
 </tr>
 <tr>
-<input type="button" value="Select All" onclick="setAllCheckBoxes('flyManageForm', 'flyline_checkbox', true)">
+<input type="button" value="Select All" onclick="setAllCheckBoxes('flyManageForm', 'flyline_checkbox[]', true)">
 </tr>
 <tr>
-<input type="button" value="Clear All" onclick="setAllCheckBoxes('flyManageForm', 'flyline_checkbox', false)">
+<input type="button" value="Clear All" onclick="setAllCheckBoxes('flyManageForm', 'flyline_checkbox[]', false)">
 </tr>
 </table>
 
