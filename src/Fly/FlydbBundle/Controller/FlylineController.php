@@ -168,7 +168,7 @@ class FlylineController extends Controller
     public function searchManageResultAction($searchTerm=null, $page=null, $maxPerPage=15)
     {        
         $securityContext = $this->get('security.context');
-        $user = $securityContext->getToken()->getUser();
+//        $user = $securityContext->getToken()->getUser();
         
         if (false === $securityContext->isGranted('ROLE_USER'))
         {
@@ -177,7 +177,7 @@ class FlylineController extends Controller
         
         $finder = $this->get('foq_elastica.finder.flydb.flyline');
 
-        $flylines = $finder->find($searchTerm,200);
+        $flylines = $finder->find($searchTerm,500);
 
         foreach ($flylines as $key => $flyline)
         {
