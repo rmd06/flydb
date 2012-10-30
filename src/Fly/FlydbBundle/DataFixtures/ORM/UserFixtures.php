@@ -34,6 +34,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         $userAdmin = $userManager->createUser();
         $userAdmin->setUsername('admin');
         $userAdmin->setEmail('admin@example.com');
+        $userAdmin->setMaxPerPage(50);
         $userAdmin->setEnabled(1);
         $userAdmin->setSuperAdmin(1);
         $userAdmin->addRole('ROLE_ADMIN');
@@ -47,6 +48,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         $userA = $userManager->createUser();
         $userA->setUsername('alice');
         $userA->setEmail('alice@example.com');
+        $userA->setMaxPerPage(5);
         $userA->setEnabled(1);
         $userA->addRole('ROLE_USER');
         $encoderA = $this->container
@@ -59,6 +61,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         $userB = $userManager->createUser();
         $userB->setUsername('ben');
         $userB->setEmail('ben@example.com');
+        $userB->setMaxPerPage(15);
         $userB->setEnabled(1);
         $userB->addRole('ROLE_USER');
         $encoderB = $this->container

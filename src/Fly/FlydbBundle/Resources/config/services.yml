@@ -9,3 +9,16 @@ services:
         class: Fly\FlydbBundle\Twig\FlyExtension
         tags:
             - { name: twig.extension }
+            
+    fly_user.registration.form.type:
+        class: Fly\FlydbBundle\Form\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: fly_user_registration }
+            
+    fly_user.profile.form.type:
+        class: Fly\FlydbBundle\Form\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: fly_user_profile }
+            

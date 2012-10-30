@@ -4,6 +4,7 @@ namespace Fly\FlydbBundle\Entity;
 
 use Fly\FlydbBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Fly\FlydbBundle\Repository\FlylineRepository")
@@ -21,21 +22,25 @@ class Flyline
     
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $name;
     
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $genotype;
     
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="flylines")
+     * @Assert\NotBlank()
      */
     protected $location;
     
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     protected $cared;
     
@@ -63,14 +68,63 @@ class Flyline
     
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     protected $created;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     protected $updated;
+
+    public function setBlankForNull()
+    {
+        if ( is_null($this->origin) ) 
+            $this->origin = "";
+            
+        if ( is_null($this->tag) ) 
+            $this->tag = "";
+            
+        if ( is_null($this->note) ) 
+            $this->note = "";
+    }
     
+    /**
+     * @ORM\PrePersist
+     */
+    public function setDateTimePrePersist()
+    {
+        $newDateTime = new \DateTime();
+        $this->created = $newDateTime;
+        $this->updated = $newDateTime;
+        $this->cared = $newDateTime;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setBlankForNullPrePersist()
+    {
+        $this->setBlankForNull();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setBlankForNullPreUpdate()
+    {
+        $this->setBlankForNull();
+    }
+
     /**
      * Get id
      *
@@ -177,17 +231,6 @@ class Flyline
     }
 
     /**
-     * @ORM\PrePersist
-     */
-    public function setDateTimePrePersist()
-    {
-        $newDateTime = new \DateTime();
-        $this->created = $newDateTime;
-        $this->updated = $newDateTime;
-        $this->cared = $newDateTime;
-    }
-
-    /**
      * Get created
      *
      * @return \DateTime 
@@ -195,14 +238,6 @@ class Flyline
     public function getCreated()
     {
         return $this->created;
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->updated = new \DateTime();
     }
 
     /**
@@ -310,4 +345,32 @@ class Flyline
         return $this->cared;
     }
 
+
+    /**
+     * Set location
+     *
+     * @param Fly\FlydbBundle\Entity\Location $location
+     * @return Flyline
+     */
+    public function setLocation(\Fly\FlydbBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+    
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return Fly\FlydbBundle\Entity\Location 
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

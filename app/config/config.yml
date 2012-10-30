@@ -68,6 +68,12 @@ fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: Fly\FlydbBundle\Entity\User
+    registration:
+        form:
+            type: fly_user_registration
+    profile:
+        form:
+            type: fly_user_profile
 
 admingenerator_generator:
     templates_dirs: [ %kernel.root_dir%/../vendor/cedriclombardot/admingenerator-oldtheme-bundle/Admingenerator/OldThemeBundle/Resources/templates ]

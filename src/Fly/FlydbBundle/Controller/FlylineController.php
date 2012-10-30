@@ -17,7 +17,6 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Elastica_Searchable;
 use Elastica_Query;
 
-
 use Fly\FlydbBundle\Entity\Flyline;
 use Fly\FlydbBundle\Form\FlylineType;
 
@@ -33,7 +32,15 @@ class FlylineController extends Controller
     public function indexAction($page=null, $maxPerPage=10)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $securityContext = $this->get('security.context');
+        $user = $securityContext->getToken()->getUser();
+        
+        if ($securityContext->isGranted('ROLE_USER'))
+        {
+            if ($user->getMaxPerPage())
+                $maxPerPage = $user->getMaxPerPage();
+        }
+        
         $entities = $em->getRepository('FlyFlydbBundle:Flyline')->getLatestFlylines();
 
         /* pagination */
@@ -82,7 +89,10 @@ class FlylineController extends Controller
             $entities = $em->getRepository('FlyFlydbBundle:Flyline')->findBy(array('owner' => $user),
                                                                         array('cared' => 'ASC'));
         }
-                
+        
+        if ($user->getMaxPerPage())
+            $maxPerPage = $user->getMaxPerPage();
+
         /* pagination */
         $adapter = new ArrayAdapter($entities);
         $pager = new Pagerfanta($adapter);
@@ -123,6 +133,15 @@ class FlylineController extends Controller
      */
     public function searchResultAction($searchTerm=null, $page=null, $maxPerPage=10)
     {
+        $securityContext = $this->get('security.context');
+        $user = $securityContext->getToken()->getUser();
+
+        if ($securityContext->isGranted('ROLE_USER'))
+        {
+            if ($user->getMaxPerPage())
+                $maxPerPage = $user->getMaxPerPage();
+        }
+        
         $finder = $this->get('foq_elastica.finder.flydb.flyline');
         
         $pager = $finder->findPaginated($searchTerm); 
@@ -130,8 +149,8 @@ class FlylineController extends Controller
 /*        $flylines = $finder->find($searchTerm);
         $adapter = new ArrayAdapter($flylines);
         $pager = new Pagerfanta($adapter);
-        $pager->setMaxPerPage($maxPerPage);
 */        
+        $pager->setMaxPerPage($maxPerPage);
         if (!$page)
         {
             $page = 1;
@@ -168,7 +187,7 @@ class FlylineController extends Controller
     public function searchManageResultAction($searchTerm=null, $page=null, $maxPerPage=15)
     {        
         $securityContext = $this->get('security.context');
-//        $user = $securityContext->getToken()->getUser();
+        $user = $securityContext->getToken()->getUser();
         
         if (false === $securityContext->isGranted('ROLE_USER'))
         {
@@ -176,8 +195,8 @@ class FlylineController extends Controller
         }
         
         $finder = $this->get('foq_elastica.finder.flydb.flyline');
-
-        $flylines = $finder->find($searchTerm,500);
+        
+        $flylines = $finder->find($searchTerm,10000);
 
         foreach ($flylines as $key => $flyline)
         {
@@ -187,6 +206,9 @@ class FlylineController extends Controller
             }
         }
         
+        if ($user->getMaxPerPage())
+            $maxPerPage = $user->getMaxPerPage();
+
         /* pagination */
         $pager = new Pagerfanta(new ArrayAdapter($flylines));
         $pager->setMaxPerPage($maxPerPage);
