@@ -84,5 +84,5 @@ Hopefully I will have time to make the improvements.
 [2]:  http://symfony.com/doc/2.1/book/doctrine.html
 [3]:  http://twig.sensiolabs.org/
 [4]:  http://www.elasticsearch.org/
-[5]:  https://gist.github.com/3820505
+[5]:  https://gist.github.com/2026107
 [6]:  http://www.elasticsearch.org/guide/reference/setup/installation.html
