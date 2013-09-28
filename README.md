@@ -67,7 +67,11 @@ Optionally, some test data is ready for import (do not do this when data
 already exists in your database)
 
     php app/console doctrine:fixtures:load
+    
+Also, might need to populate existing data for the search module to work
 
+    php app/console foq:elastica:populate
+    
 5) Done.
 --------
 
